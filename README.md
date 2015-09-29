@@ -178,7 +178,7 @@ To build an deploy the worker role here are the few simple steps:
 To connect your device to the IoT Hub instance, you need to generate a unique identity and connection string. IoT Hub does that for you.
 To create a new device identity, you have the following options:
 - Use the [Device Explorer tool][device-explorer] (runs only on Windows for now)
-- Use the node.js tool
+- Or use the node.js tool
   - For this one, you need to have node installed on your machine (https://nodejs.org/en/)
   - Once node is installed, in a command shell, type the following commands:
 
@@ -214,19 +214,39 @@ To create a new device identity, you have the following options:
 
 - Make sure the hardware platform you're using appears in the upper right-hand corner of the window, or click the icon in the right-hand corner to select your hardware platform.
 
-- Click **Import** on the main menu. Then click the **Click here** to import from URL link next to the mbed globe logo.
+- Click on **New** and in the pop up window,
+  - Select the FRDM-K64F board (you might need to add it to your environement the very first time clicking on the logo in the top right corner)
+  - pick the "Empty Program" template
+  - name the program
+  
+![][mbed8]
 
-	![][mbed1]
+- Select the newly created program in the Program WOrkspace and click **Import** on the main menu. Then click the **Click here** to import from URL link next to the mbed globe logo.
 
-- In the popup window, enter the link for the sample code https://developer.mbed.org/users/AzureIoTClient/code/temp_sensor_anomaly/
+![][mbed1]
 
-	![][mbed2]
+- In the popup window, enter the link for the embed library http://mbed.org/users/mbed_official/code/mbed/
 
-- You can see in the mbed compiler that importing this project imported various libraries. Some are provided and maintained by the Azure IoT team ([azureiot_common](https://developer.mbed.org/users/AzureIoTClient/code/azureiot_common/), [iothub_client](https://developer.mbed.org/users/AzureIoTClient/code/iothub_client/), [iothub_http_transport](https://developer.mbed.org/users/AzureIoTClient/code/iothub_http_transport/), [proton-c-mbed](https://developer.mbed.org/users/AzureIoTClient/code/proton-c-mbed/)), while others are third party libraries available in the mbed libraries catalog.
+![][mbed9]
 
-	![][mbed3]
+- Repeat the import from URL operation for all the following libraries:
+  - http://mbed.org/users/mbed_official/code/mbed/
+  - https://developer.mbed.org/users/mbed_official/code/mbed-rtos/
+  - https://developer.mbed.org/users/mbed_official/code/EthernetInterface/
+  - https://developer.mbed.org/users/donatien/code/NTPClient/
+  - https://developer.mbed.org/users/AzureIoTClient/code/iothub_client/
+  - https://developer.mbed.org/users/AzureIoTClient/code/iothub_amqp_transport/
+  - https://developer.mbed.org/users/AzureIoTClient/code/proton-c-mbed/
+  - https://developer.mbed.org/users/wolfSSL/code/wolfSSL/
+  - https://developer.mbed.org/users/AzureIoTClient/code/serializer/
+  - https://developer.mbed.org/users/chris/code/C12832/
+  - https://developer.mbed.org/users/neilt6/code/LM75B/
+  
+- Right click on the program folder, select **New File** and create a new file named main.cpp
 
-- Open temp_sensor_anomaly\main.c, and replace the highlighted code with your device connection string (to learn how to obtain this device connection string using the device explorer, read [this][device-explorer]):
+- Copy the content from the [main.cpp repository file](./mbed/main.cpp) and paste it in the new main.cpp
+
+- In the temp_sensor_anomaly\main.c file, replace the highlighted code with your device connection string (to obtain this device connection string you can use the node.js tool as described earlier in this tutorial or using device explorer as instructed [here][device-explorer]):
 
 	![][mbed4]
 
@@ -252,6 +272,8 @@ You can push data from several devices, provisionning them with several connecti
 
 ## More information
 To learn more about Azure IoT Hub check out the [Azure IoT Dev center].
+In the IoT dev center  you will also find plenty simple samples for connecting many sorts of devices to Azure IoT Hub.
+You can replace the mbed board in this sample with any of the supported devices by simply adapting the meta data and the format of the data sent to the services set up in this sample.
 
 
 [Azure Preview Portal]: https://portal.azure.com/
@@ -269,3 +291,6 @@ To learn more about Azure IoT Hub check out the [Azure IoT Dev center].
 [mbed4]: ./media/mbed4.png
 [mbed6]: ./media/mbed6.png
 [mbed7]: ./media/mbed7.png
+[mbed8]: ./media/mbed8.png
+[mbed9]: ./media/mbed9.png
+[mbed10]: ./media/mbed10.png

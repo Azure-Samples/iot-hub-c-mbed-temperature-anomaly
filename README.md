@@ -17,9 +17,9 @@ In order to run this sample you will need the following hardware:
   - Both can be found together in the [mbed Ethernet IoT Started Kit](https://developer.mbed.org/platforms/IBMethernetKit/)
 
 ### Software prerequisites
-  - These instructions assume that you have created an Azure IoT Hub instance. To learn how to do this, visit [this page](LINK TO AZURE IOT HUB SETUP PAGE ON AZURE.COM).
-  - Visual Studio 2015
-  - Serial terminal, such as [PuTTY](http://www.putty.org/), so you monitor debug traces from the devices.
+  - [Visual Studio 2015](https://www.visualstudio.com/)
+  - Azure 
+  - A Serial terminal, such as [PuTTY](http://www.putty.org/), so you monitor debug traces from the devices.
 
 ### Services setup
 In order to run the sample you will need to do the following:
@@ -35,35 +35,24 @@ In order to run the sample you will need to do the following:
 
 2. In the jumpbar, click **New**, then click **Internet of Things**, and then click **IoT Hub**.
 
-![][iothub1]
-
 3. In the **New IoT Hub** blade, specify the desired configuration for the IoT Hub.
-
-![][iothub2]
-
-    * In the **Name** box, enter a name to identify your IoT hub. When the **Name** is validated, a green check mark appears in the **Name** box.
-    * Change the **Pricing and scale tier** as desired. This tutorial does not require a specific tier.
-    * In the **Resource group** box, create a new resource group, or select and existing one. For more information, see [Using resource groups to manage your Azure resources](resource-group-portal.md).
-    * Use **Location** to specify the geographic location in which to host your IoT hub.  
+  - In the **Name** box, enter a name to identify your IoT hub. When the **Name** is validated, a green check mark appears in the **Name** box.
+  - Change the **Pricing and scale tier** as desired. This tutorial does not require a specific tier.
+  - In the **Resource group** box, create a new resource group, or select and existing one. For more information, see [Using resource groups to manage your Azure resources](resource-group-portal.md).
+  - Use **Location** to specify the geographic location in which to host your IoT hub.  
 
 
 4. Once the new IoT hub options are configured, click **Create**.  It can take a few minutes for the IoT hub to be created.  To check the status, you can monitor the progress on the Startboard. Or, you can monitor your progress from the Notifications section.
 
-![][iothub3]
-
 5. After the IoT hub has been created successfully, open the blade of the new IoT hub, take note of the URI, and select the **Key** icon on the top.
-
-![][iothub4]
 
 6. Select the Shared access policy called **iothubowner**, then copy and take note of the connection string on the right blade.
 
-![][iothub5]
+Your IoT hub is now created, and you have the URI and connection string you need to complete this tutorial.
 
-Your IoT hub is now created, and you have the URI and connection string you need to complete this tutorial
-
-For the creation of the Stream Analytics job Input, you will need to retreive some informations from the IoT Hub
+For the creation of the Stream Analytics job Input, you will need to retreive some informations from the IoT Hub:
   - From the Messaging blade (found in the settings blade), write down the **Event Hub-compatible name**
-  - Look at the **Event-hub-compatifle Endpoint**, and write down this part: sb://**thispart**.servicebus.windows.net/ we will call this one the **IoTHub EventHub-compatible namespace**
+  - Look at the **Event-hub-compatible Endpoint**, and write down this part: sb://**thispart**.servicebus.windows.net/ we will call this one the **IoTHub EventHub-compatible namespace**
   - From the "shared access policies" blade, select **iothubowner** and write down the **Primary Key**
     
 
@@ -72,17 +61,17 @@ For the creation of the Stream Analytics job Input, you will need to retreive so
 
 2. In the jumpbar, click **New**, then click **Internet of Things**, and then click **Event Hub**
 
-3. Enter the following settings for the Event Hub:
-  - Event Hub Name: "tempanomalyalerts"
+3. Enter the following settings for the Event Hub (use a name of your choice for the event hub and the namespace):
+  - Event Hub Name: "*myeventhubname*"
   - Region: your choice
   - Subscription: your choice
-  - Namespace Name: tempanomalyalerts-ns
+  - Namespace Name: *mynamespacename-ns*
   
  4. Click on **Create Event Hub**
  
- 5. Select the tempanomalyalerts-ns and go in the **Event Hub** tab
+ 5. Select the *mynamespacename-ns* and go in the **Event Hub** tab
  
- 6. Select tthe tempanomalyalerts event hub and go in the **Configure** tab
+ 6. Select the *myeventhubname* event hub and go in the **Configure** tab
  
  7. in the **Shared Access Policies** section, add a new policy:
   - Name = "readwrite"
@@ -100,16 +89,14 @@ For the creation of the Stream Analytics job Input, you will need to retreive so
 
 3. Enter a name for the job, a prefered region, choose your subscription.
 
-4. Once the job is created, go to the **Inputs** tab and add an input. Select **Data stream**, then **Event Hub**
+4. Once the job is created, go to the **Inputs** tab and add an input. Select **Data stream**, then **IoT Hub**
 
 5. For the Event Hub settings, enter the following:
   - Input Alias = "tempsensors"
-  - Subscription = "Use Event Hub from Another Subscription"
-  - Service Bus Namespace = use the **IoTHub EventHub-compatible namespace** from the IoT Hub settings
-  - Event Hub Nane = use the **Event Hub-compatible name** from the IoT Hub settings
-  - Event Hub Policy Name = "iothubowner"
-  - Event Hub Policy Key = 
-  - Event Hub Consumer Group = ""
+  - Subscription = Select the subscription on which you created your IoTHub (usually same as the one you are working on)
+  - Choose an IoT Hub = select the IoTHub you created previously in the drop down list
+  - IoT Hub Shared Access Policy Name = "iothubowner"
+  - IoT Hub Consumer Group = $Default
 
 6. Select JSON - UTF8 for the serialization settings
 
@@ -134,8 +121,8 @@ For the creation of the Stream Analytics job Input, you will need to retreive so
 9. Choose **Event Hub** and enter the following settings:
   - Output Alias = "eventhub"
   - Subscription = Pick the one you created the event hub in during previous step
-  - Choose a Namespace = "tempanomalyalerts-ns"
-  - Choose and EventHub = "tempanomalyalerts"
+  - Choose a Namespace = "*mynamespacename-ns*"
+  - Choose and EventHub = "*myeventhubname*"
   - Event Hub Policy Name = "readwrite"
   
 10. choose JSON, UTF8, Line separated for the serialization settings
@@ -145,11 +132,11 @@ For the creation of the Stream Analytics job Input, you will need to retreive so
 #### Create a storage account
 1. Log on to the [Azure Preview Portal].
 
-2. in the jumpbar, click **New** and select **Data + Storage** then **Storage Account**
+2. In the jumpbar, click **New** and select **Data + Storage** then **Storage Account**
 
 3. Choose **Classic** for the deployment model and click on **create**
 
-4. Enter the name "tempanomalystorage" for the account name and select your resource group, subscription,... then click on "Create"
+4. Enter the name of your choice (i.e. "*mystorageaccountname*" for the account name and select your resource group, subscription,... then click on "Create"
 
 5. Once the account is created, find it in the resources blade and write down the primary connection string for it to configure the worker role
 
@@ -158,7 +145,7 @@ For the creation of the Stream Analytics job Input, you will need to retreive so
 The sample uses a worker role to trigger alerts back on devices through IoT Hub.
 To build an deploy the worker role here are the few simple steps:
 
-1. Clone the repository on your machine
+1. Clone the [repository](https://github.com/Azure-Samples/iot-hub-c-mbed-temperature-anomaly) on your machine (see the links  on top of this tutorial)
 
 2. Open the solution events_to_device_service\events_to_device_service.sln in Visual Studio 2015
 
@@ -178,7 +165,7 @@ To build an deploy the worker role here are the few simple steps:
 To connect your device to the IoT Hub instance, you need to generate a unique identity and connection string. IoT Hub does that for you.
 To create a new device identity, you have the following options:
 - Use the [Device Explorer tool][device-explorer] (runs only on Windows for now)
-- Or use the node.js tool
+- Use the node.js tool
   - For this one, you need to have node installed on your machine (https://nodejs.org/en/)
   - Once node is installed, in a command shell, type the following commands:
 
@@ -202,9 +189,9 @@ To create a new device identity, you have the following options:
      
 ### Connect the device
 
-- Connect the board to your network using an Ethernet cable. This step is required, as the sample depends on internet access.
+- Connect the board to your network using an Ethernet cable. This step is required, as the sample depends on Internet access.
 
-- Plug the device into your computer using a micro-USB cable. Be sure to attach the cable to the correct USB port on the device, as pictured [here](https://developer.mbed.org/platforms/IBMEthernetKit/), in the "Getting started" section.
+- Plug the device into your computer using a micro-USB cable. Be sure to attach the cable to the correct USB port on the device (the CMSIS-DAP USB one, see [here](https://developer.mbed.org/platforms/FRDM-K64F/) to find which one it is).
 
 - Follow the [instructions on the mbed handbook](https://developer.mbed.org/handbook/SerialPC) to setup the serial connection with your device from your development machine. If you are on Windows, install the Windows serial port drivers located [here](http://developer.mbed.org/handbook/Windows-serial-configuration#1-download-the-mbed-windows-serial-port).
 
@@ -219,15 +206,9 @@ To create a new device identity, you have the following options:
   - pick the "Empty Program" template
   - name the program
   
-![][mbed8]
-
 - Select the newly created program in the Program WOrkspace and click **Import** on the main menu. Then click the **Click here** to import from URL link next to the mbed globe logo.
 
-![][mbed1]
-
 - In the popup window, enter the link for the embed library http://mbed.org/users/mbed_official/code/mbed/
-
-![][mbed9]
 
 - Repeat the import from URL operation for all the following libraries:
   - http://mbed.org/users/mbed_official/code/mbed/
@@ -246,9 +227,7 @@ To create a new device identity, you have the following options:
 
 - Copy the content from the [main.cpp repository file](./mbed/main.cpp) and paste it in the new main.cpp
 
-- In the temp_sensor_anomaly\main.c file, replace the highlighted code with your device connection string (to obtain this device connection string you can use the node.js tool as described earlier in this tutorial or using device explorer as instructed [here][device-explorer]):
-
-	![][mbed4]
+- In the temp_sensor_anomaly\main.cpp file, replace the highlighted code with your device connection string (to obtain this device connection string you can use the node.js tool as described earlier in this tutorial or using device explorer as instructed [here][device-explorer]):
 
 - Click **Compile** to build the program. You can safely ignore any warnings, but if the build generates errors, fix them before proceeding.
 
@@ -256,11 +235,7 @@ To create a new device identity, you have the following options:
 
 - Connect to the device using an serial terminal client application, such as PuTTY. You can determine which serial port your device uses by checking the Windows Device Manager:
 
-	![][mbed6]
-  
 - In PuTTY, click the **Serial** connection type. The device most likely connects at 115200, so enter that value in the **Speed** box. Then click **Open**: 
-
-	![][mbed7]
 
 The program starts executing. You may have to reset the board (press CTRL+Break or press on the board's reset button) if the program does not start automatically when you connect.
 

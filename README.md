@@ -1,5 +1,5 @@
 ---
-services: iot-hub
+services: iot-hub, stream-analytics, event-hubs
 platforms: mbed, c, cpp
 author: olivierbloch
 ---

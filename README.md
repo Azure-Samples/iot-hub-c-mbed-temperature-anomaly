@@ -31,7 +31,7 @@ In order to run the sample you will need to do the following:
 
 #### Create an IoT Hub
 
-1. Log on to the [Azure Preview Portal].
+1. Log on to the [Azure Portal].
 
 1. In the jumpbar, click **New**, then click **Internet of Things**, and then click **IoT Hub**.
 
@@ -84,11 +84,11 @@ For the creation of the Stream Analytics job Input, you will need to retreive so
 
 
 #### Create a Stream Analytics job
-1. Log on to the [Azure Preview Portal].
+1. Log on to the [Azure Portal].
 
-1. In the jumpbar, click **New**, then click **Internet of Things**, and then click **Azure Stream Analytics**.
+1. In the jumpbar, click **New**, then click **Internet of Things**, and then click **Stream Analytics Jobs**.
 
-1. Enter a name for the job, a prefered region, choose your subscription. At this stage you are also offered to create a new or to use an existing resource group. This is usefull to gather several Azure services used together. To learn more on resource groups, read [this](https://azure.microsoft.com/en-us/updates/resource-groups-in-azure-preview-portal/).
+1. Enter a name for the job, choose your subscription, select the same resource group you created when creating the IoT Hub, Select the location, and click on **Create**.
 
 1. Once the job is created, click on the **Inputs** tile in the **job topology** section. In the **Inputs blade**, click on **Add**
 
@@ -96,9 +96,9 @@ For the creation of the Stream Analytics job Input, you will need to retreive so
   - Input Alias = "tempsensors"
   - Type = "Data Stream"
   - Source = "IoT Hub"
-  - IoT Hub = "*myiothubname*" (use the name for the IoT Hub you create before
+  - IoT Hub = "*myiothubname*" (use the name for the IoT Hub you create before)
   - Shared Access Policy Name = "iothubowner"
-  - Shared Access Policy Key = "**iothubowner Primary Key**" (That's the key you wrote down when creating the IoT Hub)
+  - Shared Access Policy Key = "*iothubowner Primary Key*" (That's the key you wrote down when creating the IoT Hub)
   - IoT Hub Consumer Group = "" (leave it to the default empty value)
   - Event serialization format = "JSON"
   - Encoding = "UTF-8"
@@ -136,7 +136,7 @@ For the creation of the Stream Analytics job Input, you will need to retreive so
 1. Back in the Stream Analytics blade, start the job by clicking on the **Start** button at the top
 
 #### Create a storage account
-1. Log on to the [Azure Preview Portal].
+1. Log on to the [Azure Portal].
 
 1. In the jumpbar, click **New** and select **Data + Storage** then **Storage Account**
 
@@ -243,7 +243,7 @@ You can replace the mbed board in this sample with any of the supported devices 
 
 
 [Azure Management Portal]: https://manage.windowsazure.com
-[Azure Preview Portal]: https://portal.azure.com/
+[Azure Portal]: https://portal.azure.com/
 [Azure IoT Dev center]: https://www.azure.com/iotdev
 [device-explorer]: http://aka.ms/iot-hub-how-to-use-device-explorer
 [iothub1]: ./media/create-iot-hub1.png
